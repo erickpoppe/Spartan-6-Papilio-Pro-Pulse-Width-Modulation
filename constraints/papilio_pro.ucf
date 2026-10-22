@@ -1,0 +1,23 @@
+################################################################################
+# CONFIGURATION SETTINGS
+################################################################################
+# Prevent the compiler from erroring out if unassigned pins drift
+CONFIG VCCAUX = "3.3";
+
+################################################################################
+# CLOCK CONSTRAINTS
+################################################################################
+# The Papilio Pro onboard 32MHz oscillator is physically tied to Pin 94
+NET "clk" LOC = "P94" | IOSTANDARD = LVCMOS33;
+
+# Define the clock period precisely (1 / 32,000,000 Hz = 31.25 ns)
+NET "clk" TNM_NET = "sys_clk_pin";
+TIMESPEC TS_sys_clk_pin = PERIOD "sys_clk_pin";
+
+################################################################################
+# HARDWARE PINS (Wing A0)
+################################################################################
+# Map our output to Wing A, Pin 0 (Physical FPGA Pin 114)
+# We add DRIVE strength and PULLDOWN to protect the pin state during power-up
+NET "led_pin" LOC = "P114" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 | PULLDOWN;
+
